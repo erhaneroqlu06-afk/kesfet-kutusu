@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikTok bağlantısı – Keşfet Kutusu</title><link rel="icon" href="favicon.png">
+<style>
+body{font-family:system-ui,sans-serif;max-width:640px;margin:0 auto;padding:32px 16px;color:#1b2440;background:#f3f5fa;line-height:1.55}
+h1{color:#121D38;font-size:24px}.kod{background:#fff;border:2px solid #FF8A2B;border-radius:12px;padding:14px;word-break:break-all;font-family:ui-monospace,monospace;font-size:14px}
+button,a.btn{display:inline-block;margin-top:12px;background:#FF8A2B;color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer}
+.hata{color:#b00020}ol li{margin:6px 0}
+</style></head><body>
+<h1>Keşfet Kutusu – TikTok bağlantısı</h1>
+<div id="icerik">Yükleniyor…</div>
+<script>
+const p = new URLSearchParams(location.search);
+const kod = p.get('code'), hata = p.get('error_description') || p.get('error');
+const el = document.getElementById('icerik');
+if (kod) {
+  el.innerHTML = `<p>TikTok izni verildi. Bu kodu robota iletmen gerekiyor (yaklaşık 10 dakika geçerli):</p>
+  <div class="kod" id="kod"></div>
+  <button id="kopyala">Kodu kopyala</button>
+  <ol>
+    <li>Aşağıdaki düğmeyle GitHub'daki <b>TikTok izni</b> sayfasını aç.</li>
+    <li><b>Run workflow</b> düğmesine bas, kodu kutuya yapıştır ve yeşil <b>Run workflow</b>'a bas.</li>
+  </ol>
+  <a class="btn" target="_blank" rel="noopener" href="https://github.com/erhaneroqlu06-afk/kesfet-kutusu-tr/actions/workflows/tiktok_izin.yml">GitHub'da aç →</a>`;
+  document.getElementById('kod').textContent = kod;
+  document.getElementById('kopyala').onclick = () => navigator.clipboard.writeText(kod).then(() => { document.getElementById('kopyala').textContent = 'Kopyalandı ✓'; });
+} else if (hata) {
+  el.innerHTML = '<p class="hata"></p>'; el.firstChild.textContent = 'TikTok izni verilmedi: ' + hata;
+} else {
+  el.textContent = 'Bu sayfa, TikTok girişinden sonra otomatik açılır.';
+}
+</script>
+<p style="margin-top:32px;font-size:13px"><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Kullanım Koşulları</a></p>
+</body></html>
